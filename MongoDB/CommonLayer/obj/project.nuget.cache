@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "26mrUhW2f69t+RB23b9tnY/DGYc5BHXCbrH6DQiPbGunOfrLEW1vaBjyCuZ/fPT9CjJ9nJaUBZMM/FCojq83/Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Prashik Jaware\\source\\repos\\BackEnd2\\MongoDB\\CommonLayer\\CommonLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.15\\microsoft.aspnetcore.jsonpatch.3.1.15.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.15\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.15.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\mongodb.bson\\2.12.3\\mongodb.bson.2.12.3.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\Prashik Jaware\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

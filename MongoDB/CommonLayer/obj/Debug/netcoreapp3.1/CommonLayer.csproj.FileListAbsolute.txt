@@ -1,0 +1,9 @@
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.deps.json
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.dll
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.pdb
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.csprojAssemblyReference.cache
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.AssemblyInfoInputs.cache
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.AssemblyInfo.cs
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.csproj.CoreCompileInputs.cache
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.dll
+C:\Users\Prashik Jaware\source\repos\BackEnd2\MongoDB\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.pdb
