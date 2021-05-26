@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLayer.Interfaces;
 using CommonLayer.Models;
@@ -27,9 +28,11 @@ namespace BooksStore.Controllers
         {
             string id = User.FindFirst("Id").Value;
             string type = User.FindFirst("ServiceType").Value;
+            string email = User.FindFirst(ClaimTypes.Email).Value;
             List<string> l = new List<string>();
             l.Add(id);
             l.Add(type);
+            l.Add(email);
             return l;
         }
 
@@ -51,7 +54,6 @@ namespace BooksStore.Controllers
         {
             if (GetTokenType()[1] != "Users")
             {
-
                 return this.BadRequest(new { success = false, message = "Only Users Allowed" });
             }
 
@@ -66,8 +68,9 @@ namespace BooksStore.Controllers
 
             if (book.AvailableBooks >= 0)
             {
+                book.ToCart = false;
                 _bookService.Update(bookId, book);
-                Order order = new Order() { BookName = book.BookName, Price = book.Price, Email = "", BooksOrdered = book.AvailableBooks};
+                Order order = new Order() { BookName = book.BookName, Price = book.Price, Email = GetTokenType()[2], BooksOrdered = quantity};
                 _cartService.Create(order);
                 return this.Ok(new { success = true, message = "Book Ordered" });
             }
