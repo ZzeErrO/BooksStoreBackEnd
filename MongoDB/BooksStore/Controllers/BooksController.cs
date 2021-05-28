@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Interfaces;
 using CommonLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace BooksStore.Controllers
 {
@@ -16,9 +19,13 @@ namespace BooksStore.Controllers
     {
         private readonly IBooksBL _bookService;
 
-        public BooksController(IBooksBL bookService)
+        private readonly IDistributedCache distributedCache;
+
+        public BooksController(IBooksBL bookService, IDistributedCache distributedCache)
         {
             _bookService = bookService;
+
+            this.distributedCache = distributedCache;
         }
         private List<string> GetTokenType()
         {
@@ -35,6 +42,32 @@ namespace BooksStore.Controllers
         {
             var books = _bookService.Get();
             return this.Ok(new { success = true, books });
+        }
+
+        [AllowAnonymous]
+        [HttpGet("redis")]
+        public async Task<IActionResult> GetAllBooksUsingRedisCache()
+        {
+            var cacheKey = "bookList";
+            string serializedBookList;
+            var bookList = new List<Book>();
+            var redisCustomerList = await distributedCache.GetAsync(cacheKey);
+            if (redisCustomerList != null)
+            {
+                serializedBookList = Encoding.UTF8.GetString(redisCustomerList);
+                bookList = JsonConvert.DeserializeObject<List<Book>>(serializedBookList);
+            }
+            else
+            {
+                bookList = _bookService.Get();
+                serializedBookList = JsonConvert.SerializeObject(bookList);
+                redisCustomerList = Encoding.UTF8.GetBytes(serializedBookList);
+                var options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                await distributedCache.SetAsync(cacheKey, redisCustomerList, options);
+            }
+            return Ok(bookList);
         }
 
         [HttpGet("{id:length(24)}", Name = "GetBook")]

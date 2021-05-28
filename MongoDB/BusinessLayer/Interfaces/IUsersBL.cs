@@ -8,5 +8,11 @@ namespace BusinessLayer.Interfaces
     public interface IUsersBL
     {
         public UserModel Authenticate(string email, string password);
+
+        public UserModel Get(string id);
+
+        public WishList ToWishList(Book book, UserModel userModel);
+
+        public Cart ToCart(Book book, UserModel userModel);
     }
 }

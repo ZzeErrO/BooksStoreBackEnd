@@ -21,11 +21,6 @@ namespace RepositoryLayer.Services
         public List<Book> Get() =>
             this._books.Find(book => true).ToList();
 
-        public List<Book> GetWishListBooks() =>
-            this._books.Find(book => book.ToWishList == true).ToList();
-
-        public List<Book> GetCartBooks() =>
-            this._books.Find(book => book.ToCart == true).ToList();
         public Book Get(string id) =>
             this._books.Find<Book>(book => book.Id == id).FirstOrDefault();
 

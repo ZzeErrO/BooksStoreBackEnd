@@ -9,8 +9,10 @@ using BusinessLayer.Interfaces;
 using CommonLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace BooksStore.Controllers
 {
@@ -22,11 +24,16 @@ namespace BooksStore.Controllers
         private readonly IAdminBL _adminBL;
         private readonly string _secret;
         private readonly string _issuer;
-        public AdminController(IAdminBL dataRepository, IConfiguration config)
+
+        private readonly IDistributedCache distributedCache;
+
+        public AdminController(IAdminBL dataRepository, IConfiguration config, IDistributedCache distributedCache)
         {
             _adminBL = dataRepository;
             _secret = config.GetSection("Jwt").GetSection("Key").Value;
             _issuer = config.GetSection("Jwt").GetSection("Issuer").Value;
+
+            this.distributedCache = distributedCache;
         }
 
         [AllowAnonymous]

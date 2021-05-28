@@ -25,15 +25,6 @@ namespace BusinessLayer.Services
             return this.bookRL.Get();
         }
 
-        public List<Book> GetWishListBooks()
-        {
-            return this.bookRL.GetWishListBooks ();
-        }
-
-        public List<Book> GetCartBooks()
-        {
-            return this.bookRL.GetCartBooks();
-        }
 
         public Book Get(string id)
         {

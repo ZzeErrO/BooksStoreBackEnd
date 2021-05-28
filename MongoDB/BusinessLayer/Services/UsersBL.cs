@@ -26,5 +26,41 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public UserModel Get(string id)
+        {
+            try
+            {
+                return usersRL.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public WishList ToWishList(Book book, UserModel userModel)
+        {
+            try
+            {
+                return usersRL.ToWishList(book, userModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Cart ToCart(Book book, UserModel userModel)
+        {
+            try
+            {
+                return usersRL.ToCart(book, userModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

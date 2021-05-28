@@ -54,15 +54,22 @@ namespace BooksStore
             services.AddTransient<IAdminRL, AdminRL>();
             services.AddTransient<ICartBL, CartBL>();
             services.AddTransient<ICartRL, CartRL>();
+            services.AddTransient<IWishListBL, WishListBL>();
+            services.AddTransient<IWishListRL, WishListRL>();
 
             services.AddControllers();
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "https://localhost:6379";
+            });
 
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "AllowOrigin",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:44368", "http://localhost:3000")
+                        builder.WithOrigins("https://localhost:44362", "http://localhost:3000")
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });

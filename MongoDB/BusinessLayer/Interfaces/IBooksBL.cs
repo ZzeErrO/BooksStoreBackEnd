@@ -8,8 +8,6 @@ namespace BusinessLayer.Interfaces
     public interface IBooksBL
     {
         public List<Book> Get();
-        public List<Book> GetWishListBooks();
-        public List<Book> GetCartBooks();
         public Book Get(string id);
         public Book Create(Book book);
         public void Update(string id, Book bookIn);

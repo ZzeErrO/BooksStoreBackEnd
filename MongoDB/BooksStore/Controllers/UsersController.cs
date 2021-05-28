@@ -42,6 +42,12 @@ namespace BooksStore.Controllers
             return l;
         }
 
+        private UserModel Get(string id)
+        {
+            var user = _usersBL.Get(id);
+            return user;
+        }
+
         [AllowAnonymous]
         [HttpPost("Login")]
         public IActionResult Authenticate([FromBody] LoginRequestModel model)
@@ -111,9 +117,7 @@ namespace BooksStore.Controllers
                 return NotFound();
             }
 
-            book.ToWishList = true;
-
-            _bookService.Update(id, book);
+            var wish = _usersBL.ToWishList(book, Get(GetTokenType()[0]));
 
             return this.Ok(new { success = true, message = "Moved to Wish List" });
         }
@@ -134,17 +138,7 @@ namespace BooksStore.Controllers
                 return NotFound();
             }
 
-            if (book.ToWishList == true)
-            {
-                book.ToWishList = false;
-                book.ToCart = true;
-            }
-            else
-            {
-                book.ToCart = true;
-            }
-
-            _bookService.Update(id, book);
+            _usersBL.ToCart(book, Get(GetTokenType()[0]));
 
             return this.Ok(new { success = true, message = "Moved to Cart" });
         }

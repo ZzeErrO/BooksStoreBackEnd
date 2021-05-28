@@ -18,5 +18,28 @@ namespace BusinessLayer.Services
         {
             return this.cartRL.Create(order);
         }
+        public List<Cart> GetCart(string bookid)
+        {
+            try
+            {
+                return this.cartRL.GetCart(bookid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void Remove(string bookid, string userId)
+        {
+            try
+            {
+                this.cartRL.Remove(bookid, userId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+        }
     }
 }

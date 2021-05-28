@@ -45,21 +45,22 @@ namespace BooksStore.Controllers
                 return this.BadRequest(new { success = false, message = "Only Users Allowed" });
             }
 
-            var book = _bookService.GetCartBooks();
+            var book = _cartService.GetCart(GetTokenType()[0]);
             return this.Ok(new {success= true, book });
         }
 
-        [HttpPut("/OrderBook")]
-        public IActionResult OrderBook(string bookId, [FromBody] int quantity)
+        [HttpPut("/Order/{bookId}/{quantity}")]
+        public IActionResult OrderBook(string bookId, int quantity)
         {
             if (GetTokenType()[1] != "Users")
             {
                 return this.BadRequest(new { success = false, message = "Only Users Allowed" });
             }
 
+            var cartBook = _cartService.GetCart(GetTokenType()[0]);
             var book = _bookService.Get(bookId);
 
-            if (book.ToCart == false)
+            if (cartBook == null)
             {
                 return this.BadRequest(new { success = false, message = "Book is not in Cart" });
             }
@@ -68,8 +69,8 @@ namespace BooksStore.Controllers
 
             if (book.AvailableBooks >= 0)
             {
-                book.ToCart = false;
                 _bookService.Update(bookId, book);
+                _cartService.Remove(bookId, GetTokenType()[0]);
                 Order order = new Order() { BookName = book.BookName, Price = book.Price, Email = GetTokenType()[2], BooksOrdered = quantity};
                 _cartService.Create(order);
                 return this.Ok(new { success = true, message = "Book Ordered" });

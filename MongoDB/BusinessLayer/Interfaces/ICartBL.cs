@@ -7,6 +7,10 @@ namespace BusinessLayer.Interfaces
 {
     public interface ICartBL
     {
-       public Order Create(Order order);
+        public Order Create(Order order);
+
+        public List<Cart> GetCart(string id);
+
+        public void Remove(string bookid, string userId);
     }
 }

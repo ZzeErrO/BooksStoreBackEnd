@@ -8,5 +8,7 @@ namespace RepositoryLayer.Interfaces
     public interface ICartRL
     {
         public Order Create(Order order);
+        public List<Cart> GetCart(string id);
+        public void Remove(string bookid, string userId);
     }
 }

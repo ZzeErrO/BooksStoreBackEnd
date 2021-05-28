@@ -23,10 +23,6 @@ namespace CommonLayer.Models
 
         public string Authors { get; set; }
 
-        public bool ToWishList { get; set; }
-
-        public bool ToCart { get; set; }
-
         public DateTime Arrival { get; set; }
 
         public int AvailableBooks { get; set; }

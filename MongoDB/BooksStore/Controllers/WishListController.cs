@@ -15,10 +15,14 @@ namespace BooksStore.Controllers
     public class WishListController : Controller
     {
         private readonly IBooksBL _bookService;
+        private readonly IWishListBL _wishListBL;
+        private readonly IUsersBL _usersBL;
 
-        public WishListController(IBooksBL bookService)
+        public WishListController(IUsersBL dataRepository, IBooksBL bookService, IWishListBL wishListBL)
         {
             _bookService = bookService;
+            _wishListBL = wishListBL;
+            _usersBL = dataRepository;
         }
 
         private List<string> GetTokenType()
@@ -30,6 +34,11 @@ namespace BooksStore.Controllers
             l.Add(type);
             return l;
         }
+        private UserModel Get(string id)
+        {
+            var user = _usersBL.Get(id);
+            return user;
+        }
 
         [HttpGet]
         public IActionResult GetWishListBooks()
@@ -40,9 +49,10 @@ namespace BooksStore.Controllers
                 return this.BadRequest(new { success = false, message = "Only Users Allowed" });
             }
 
-            var wishList = _bookService.GetWishListBooks();
+            var wishList = _wishListBL.GetWishList(GetTokenType()[0]);
             return this.Ok(new {success= true, wishList });
         }
+
         [HttpPut("{id}/MoveToCart")]
         public IActionResult MoveToCart(string id)
         {
@@ -59,17 +69,7 @@ namespace BooksStore.Controllers
                 return this.BadRequest(new { success = false, message = "No such Book Exist" });
             }
 
-            if (book.ToWishList == true)
-            {
-                book.ToWishList = false;
-                book.ToCart = true;
-            }
-            else 
-            {
-                book.ToCart = true;
-            }
-
-            _bookService.Update(id, book);
+            _usersBL.ToCart(book, Get(GetTokenType()[0]));
 
             return this.Ok(new { success = true, message = "Moved to Cart" });
         }
