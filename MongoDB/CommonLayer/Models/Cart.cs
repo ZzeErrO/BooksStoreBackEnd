@@ -18,10 +18,12 @@ namespace CommonLayer.Models
 
         public int Quantity { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string BookId { get; set; }
 
         public decimal Price { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
     }
 }

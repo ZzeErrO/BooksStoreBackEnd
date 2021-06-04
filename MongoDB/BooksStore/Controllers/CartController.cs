@@ -39,17 +39,25 @@ namespace BooksStore.Controllers
         [HttpGet]
         public IActionResult GetCartBooks()
         {
-            if (GetTokenType()[1] != "Users")
+            try
             {
+                if (GetTokenType()[1] != "Users")
+                {
 
-                return this.BadRequest(new { success = false, message = "Only Users Allowed" });
+                    return this.BadRequest(new { success = false, message = "Only Users Allowed" });
+                }
+
+                var book = _cartService.GetCart(GetTokenType()[0]);
+                var books = _bookService.Get();
+                return this.Ok(new { success = true, book });
             }
-
-            var book = _cartService.GetCart(GetTokenType()[0]);
-            return this.Ok(new {success= true, book });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        [HttpPut("/Order/{bookId}/{quantity}")]
+        [HttpPut("Order/{bookId}/{quantity}")]
         public IActionResult OrderBook(string bookId, int quantity)
         {
             if (GetTokenType()[1] != "Users")
@@ -63,6 +71,11 @@ namespace BooksStore.Controllers
             if (cartBook == null)
             {
                 return this.BadRequest(new { success = false, message = "Book is not in Cart" });
+            }
+
+            if (book == null)
+            {
+                return this.BadRequest(new { success = false, message = "Book does not exist anymore in Store" });
             }
 
             book.AvailableBooks = book.AvailableBooks - quantity;

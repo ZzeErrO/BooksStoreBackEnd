@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
     {
         public Order Create(Order order);
 
-        public List<Cart> GetCart(string id);
+        public dynamic GetCart(string id);
 
         public void Remove(string bookid, string userId);
     }
