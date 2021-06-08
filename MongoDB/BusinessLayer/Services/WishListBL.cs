@@ -14,7 +14,7 @@ namespace BusinessLayer.Services
         {
             this.wishListRL = wishList;
         }
-        public List<WishList> GetWishList(string id)
+        public dynamic GetWishList(string id)
         {
             try
             {
@@ -23,6 +23,19 @@ namespace BusinessLayer.Services
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public void Remove(string bookid, string userId)
+        {
+            try
+            {
+                this.wishListRL.Remove(bookid, userId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
             }
         }
     }

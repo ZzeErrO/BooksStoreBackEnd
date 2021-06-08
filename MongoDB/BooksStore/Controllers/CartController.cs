@@ -57,6 +57,35 @@ namespace BooksStore.Controllers
             }
         }
 
+        [HttpDelete("{_bookid}")]
+        public IActionResult Delete(string _bookid)
+        {
+            try
+            {
+                if (GetTokenType()[1] != "Users")
+                {
+
+                    return this.BadRequest(new { success = false, message = "Only Users Allowed" });
+                }
+
+                var cartBook = _cartService.GetCart(GetTokenType()[0]);
+
+                if (cartBook == null)
+                {
+                    return NotFound();
+                }
+
+
+                _cartService.Remove(_bookid, GetTokenType()[0]);
+
+                return this.Ok(new { success = true, message = "Book Deleted" });
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(new { success = false, message = ex });
+            }
+        }
+
         [HttpPut("Order/{bookId}/{quantity}")]
         public IActionResult OrderBook(string bookId, int quantity)
         {

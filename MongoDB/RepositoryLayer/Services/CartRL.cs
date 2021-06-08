@@ -34,21 +34,6 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                /*var data = from b in _books.AsQueryable()
-                           join c in _cart.AsQueryable()
-                           on b.Id equals c.BookId into result
-                           where result.First().UserId == id
-                           select new
-                           {
-                               BookId = b.Id,
-                               bookName = b.BookName,
-                               AvailableBooks = b.AvailableBooks,
-                               Price = b.Price,
-                               Category = b.Category,
-                               Author = b.Authors,
-                               Arrival = b.Arrival,
-                               Quantity = result.First().Quantity,
-                           };*/
 
                 var data = from c in _cart.AsQueryable()
                            join b in _books.AsQueryable()

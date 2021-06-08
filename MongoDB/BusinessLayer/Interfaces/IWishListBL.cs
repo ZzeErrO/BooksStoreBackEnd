@@ -7,6 +7,9 @@ namespace BusinessLayer.Interfaces
 {
     public interface IWishListBL
     {
-        public List<WishList> GetWishList(string id);
+        public dynamic GetWishList(string id);
+
+        public void Remove(string bookid, string userId);
+
     }
 }

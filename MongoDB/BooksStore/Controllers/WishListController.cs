@@ -73,5 +73,26 @@ namespace BooksStore.Controllers
 
             return this.Ok(new { success = true, message = "Moved to Cart" });
         }
+
+        [HttpDelete("{_bookid}")]
+        public IActionResult Delete(string _bookid)
+        {
+            if (GetTokenType()[1] != "Users")
+            {
+
+                return this.BadRequest(new { success = false, message = "Only Users Allowed" });
+            }
+
+            var wishBook = _wishListBL.GetWishList(GetTokenType()[0]);
+
+            if (wishBook == null)
+            {
+                return NotFound();
+            }
+
+            _wishListBL.Remove(_bookid, GetTokenType()[0]);
+
+            return this.Ok(new { success = true, message = "Book Deleted" });
+        }
     }
 }
